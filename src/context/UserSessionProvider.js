@@ -7,19 +7,23 @@ const auth = getAuth(firebaseApp);
 
 export default function UserSessionProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (userLogged) => {
+    const unSubscribe = onAuthStateChanged(auth, (userLogged) => {
       if (userLogged) {
         setUser(userLogged);
       } else {
         setUser(null);
       }
+      setLoading(false);
     });
+
+    return unSubscribe;
   }, []);
 
   return (
-    <UserSessionContext.Provider value={{user, auth}}>
+    <UserSessionContext.Provider value={{ user, auth, isLoading }}>
       {children}
     </UserSessionContext.Provider>
   );
