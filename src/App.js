@@ -1,23 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import { Text, Button } from "@nextui-org/react";
+import { signOut } from "firebase/auth";
+import useUser from "./hooks/useUser";
 
 function App() {
+  const { auth } = useUser();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+      <Text>Probando</Text>
+      <Button onClick={() => signOut(auth)}>Salir de la cuenta</Button>
     </div>
   );
 }
