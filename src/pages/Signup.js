@@ -36,7 +36,7 @@ export default function Signup() {
               type="text"
               name="fullname"
               label="Full name"
-              fullWidth={true}
+              fullWidth
               status={!!errors.fullname?.message ? "error" : "default"}
               clearable
             />
@@ -51,7 +51,7 @@ export default function Signup() {
               type="email"
               name="email"
               label="E-mail"
-              fullWidth={true}
+              fullWidth
               status={!!errors.email?.message ? "error" : "default"}
             />
             <ErrorText
@@ -64,7 +64,7 @@ export default function Signup() {
               {...register("password")}
               name="password"
               label="Password"
-              fullWidth={true}
+              fullWidth
               helperText="Mínimo 8 carácteres, minúsculas mayúscula con un número"
               status={!!errors.password?.message ? "error" : "default"}
             />
@@ -79,7 +79,7 @@ export default function Signup() {
               {...register("passwordConfirm")}
               name="passwordConfirm"
               label="Confirm password"
-              fullWidth={true}
+              fullWidth
               status={!!errors.passwordConfirm?.message ? "error" : "default"}
             />
             <ErrorText

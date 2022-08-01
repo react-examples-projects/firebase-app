@@ -38,7 +38,7 @@ export default function Login() {
               type="email"
               name="email"
               label="E-mail"
-              fullWidth={true}
+              fullWidth
               status={!!errors.email?.message ? "error" : "default"}
               clearable
             />
@@ -52,7 +52,7 @@ export default function Login() {
               {...register("password")}
               name="password"
               label="Password"
-              fullWidth={true}
+              fullWidth
               status={!!errors.password?.message ? "error" : "default"}
             />
              <ErrorText
