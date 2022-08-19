@@ -1,24 +1,29 @@
-import { Text, Container, Input, Button } from "@nextui-org/react";
+import { Text, Container, Input, Button, Loading } from "@nextui-org/react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { loginSchema } from "../helpers/schemas";
 import useUser from "../hooks/useUser";
 import useFormValidation from "../hooks/useFormValidation";
 import ErrorText from "../components/ErrorText";
+import { useState } from "react";
 
 export default function Login() {
   const { auth } = useUser();
-  const navigate = useNavigate();
   const { register, handleSubmit, errors } = useFormValidation(loginSchema);
+  const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     const { email, password } = e;
     try {
+      setLoading(true);
       const res = await signInWithEmailAndPassword(auth, email, password);
       console.log(res);
       navigate("/");
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -55,13 +60,18 @@ export default function Login() {
               fullWidth
               status={!!errors.password?.message ? "error" : "default"}
             />
-             <ErrorText
+            <ErrorText
               text={errors.password?.message}
               isVisible={!!errors.password?.message}
             />
           </div>
-          <Button type="submit" name="submit" className="w-100">
-            Aceptar
+          <Button
+            type="submit"
+            name="submit"
+            className="w-100"
+            disabled={isLoading}
+          >
+            {isLoading ? <Loading /> : "Aceptar"}
           </Button>
         </form>
         <Link to="/signup" className="d-block w-100 mt-3">

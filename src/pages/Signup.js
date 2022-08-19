@@ -1,22 +1,26 @@
-import { Text, Container, Input, Button } from "@nextui-org/react";
+import { Text, Container, Input, Button, Loading } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signupSchema } from "../helpers/schemas";
 import useUser from "../hooks/useUser";
 import useFormValidation from "../hooks/useFormValidation";
 import ErrorText from "../components/ErrorText";
+import { useState } from "react";
 
 export default function Signup() {
   const { auth } = useUser();
   const { register, handleSubmit, errors } = useFormValidation(signupSchema);
-
+  const [isLoading, setLoading] = useState(false);
   const onSubmit = async (e) => {
     const { email, password } = e;
     try {
+      setLoading(true);
       const res = await createUserWithEmailAndPassword(auth, email, password);
       console.log(res);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -87,8 +91,13 @@ export default function Signup() {
               isVisible={!!errors.passwordConfirm?.message}
             />
           </div>
-          <Button type="submit" name="submit" className="w-100">
-            Aceptar
+          <Button
+            type="submit"
+            name="submit"
+            className="w-100"
+            disabled={isLoading}
+          >
+            {isLoading ? <Loading /> : "Aceptar"}
           </Button>
         </form>
         <Link to="/login" className="d-block w-100 mt-3">
