@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { Button, Text, Modal, Input } from "@nextui-org/react";
 import { useState } from "react";
 import FirebaseQueries from "../helpers/firebase";
@@ -21,6 +20,7 @@ export default function ModalUserEdit({
 
   const submit = async () => {
     await table.update(user.id, formState);
+    toggleOpenModalEdit();
   };
 
   return (

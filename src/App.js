@@ -1,4 +1,4 @@
-import { Text, Button, Input } from "@nextui-org/react";
+import { Text, Button, Input  } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
 import useUser from "./hooks/useUser";
