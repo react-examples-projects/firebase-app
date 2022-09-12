@@ -13,7 +13,6 @@ export default function useLazyloadImage({
 }) {
   const imgNodeRef = useRef(null);
   useEffect(() => {
-    console.log(imgNodeRef.current);
     imgNodeRef.current.src = placeholder;
     imgNodeRef.current.setAttribute("data-src", src);
     lazyLoad(imgNodeRef.current);

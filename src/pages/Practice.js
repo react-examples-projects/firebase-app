@@ -1,7 +1,10 @@
 import { Button } from "@nextui-org/react";
 import { useEffect } from "react";
 import { useState } from "react";
+import AOS from "aos";
+import InfiniteScroll from "react-infinite-scroller";
 import Post from "../components/Post";
+import "aos/dist/aos.css";
 import "../styles/practice.scss";
 
 function Panel({ leftComponent, rightComponent }) {
@@ -26,7 +29,10 @@ function Panel({ leftComponent, rightComponent }) {
 }
 
 export default function Practice() {
+  const ITEMS_PER_LOAD = 5;
   const [posts, setPosts] = useState([]);
+  const [data, setData] = useState([]);
+  const [itemsPerLoad, setItemsPerLoad] = useState(ITEMS_PER_LOAD);
 
   const fetchData = () => {
     import("../helpers/utils").then(async (imp) => {
@@ -55,16 +61,59 @@ export default function Practice() {
     );
   };
 
+  const loadMore = () => {
+    console.log("load more")
+    if (!data.length) return;
+
+    let postsData;
+    if (itemsPerLoad + ITEMS_PER_LOAD > posts.length) {
+      postsData = posts.slice(0, itemsPerLoad + posts.length);
+    } else {
+      postsData = posts.slice(0, itemsPerLoad + ITEMS_PER_LOAD);
+    }
+    setData(postsData);
+    setItemsPerLoad(itemsPerLoad + ITEMS_PER_LOAD);
+  };
+
+  useEffect(() => {
+    AOS.init({
+      once: true,
+    });
+  }, []);
+
+  useEffect(() => {
+    const data = posts.slice(0, ITEMS_PER_LOAD);
+    console.log({ data });
+    setData(data);
+  }, [posts]);
+
   return (
     <div className="container-practice">
       <Panel leftComponent={<Left />} rightComponent={<Right />} />
       <Button onClick={fetchData}>Fetch data</Button>
 
-      {posts.length > 0 && (
-        <section className="posts">
-          {posts.map((post) => (
-            <Post post={post} key={post.id}/>
-          ))}
+      {data.length > 0 && (
+        <section>
+          <InfiniteScroll
+            className="posts"
+            pageStart={0}
+            loadMore={loadMore}
+            hasMore={data.length !== posts.length}
+            // loader={
+            //   <div className="loader" key={0}>
+            //     Loading ...
+            //   </div>
+            // }
+          >
+            {data.map((post, index) => (
+              <Post
+                post={post}
+                key={post.id}
+                data-aos="fade-up"
+                data-aos-duration={1000}
+              />
+            ))}
+          </InfiniteScroll>
         </section>
       )}
     </div>

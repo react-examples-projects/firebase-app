@@ -1,14 +1,12 @@
 import useLazyloadImage from "../hooks/useLazyLoadImage";
 
-export default function Post({ post }) {
+export default function Post({ post, ...args }) {
   const { ref } = useLazyloadImage({
-    src: `https://picsum.photos/id/${post.id}/400/400`,
-    placeholder: `https://picsum.photos/id/${post.id}/20/20`,
+    src: `https://picsum.photos/id/${post.id}/1000/1000`,
   });
   return (
-    <article>
+    <article {...args}>
       <img
-        src={`https://picsum.photos/id/${post.id}/20/20`}
         ref={ref}
         alt={post.title}
         loading="lazy"

@@ -27,13 +27,15 @@
 }
 
 .posts {
+  $gap : 8px;
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
+  gap: $gap;
   @include container();
 
   article {
-    flex: 0 0 calc(33.33% - 0.5rem);
+    flex: 0 0 auto;
+    width: calc(33.33% - $gap);
     overflow: hidden;
     height: max-content;
 
@@ -43,14 +45,6 @@
       max-width: 100%;
       object-fit: cover;
       border-radius: 5px;
-      filter: blur(4px);
-      transform: scale(1.03);
-      transition: filter 0.1s ease, transform 1s ease;
-
-      &.loaded {
-        filter: blur(0);
-        transform: scale(1)
-      }
     }
   }
 }
