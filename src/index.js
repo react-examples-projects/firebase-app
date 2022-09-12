@@ -11,6 +11,9 @@ import "inter-ui/inter.css";
 const darkTheme = createTheme({
   type: "dark",
   theme: {
+    colors: {
+      black: "#010e1a",
+    },
     fonts: {
       sans: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto","Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",sans-serif',
     },

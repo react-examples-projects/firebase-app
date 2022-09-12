@@ -6,7 +6,8 @@ const Image = styled.img`
   display: block;
   width: 100%;
   max-width: 150px;
-  height: auto;
+  max-height: 150px;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   margin-bottom: 1rem;
