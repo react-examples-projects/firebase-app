@@ -1,0 +1,21 @@
+.banner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: #00c6ff;
+  background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);
+  background: linear-gradient(to right, #0072ff, #00c6ff);
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+
+  >img {
+    display: block;
+    position: absolute;
+    right: -2rem;
+    top: -2rem;
+    width: 100%;
+    max-width: 140px;
+    height: auto;
+  }
+}

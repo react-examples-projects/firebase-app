@@ -9,7 +9,7 @@ import {
   onSnapshot,
   query,
 } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { fireStore } from "../config/firebase";
 
 class FirebaseQueries {
   constructor(table) {
@@ -17,22 +17,22 @@ class FirebaseQueries {
   }
 
   async insert(payload) {
-    const res = await addDoc(collection(db(), this.table), payload);
+    const res = await addDoc(collection(fireStore(), this.table), payload);
     return res;
   }
 
   async delete(id) {
-    const res = await deleteDoc(doc(db(), this.table, id));
+    const res = await deleteDoc(doc(fireStore(), this.table, id));
     return res;
   }
 
   async update(id, payload) {
-    const res = await setDoc(doc(db(), this.table, id), payload);
+    const res = await setDoc(doc(fireStore(), this.table, id), payload);
     return res;
   }
 
   async get() {
-    const querySnapshot = await getDocs(collection(db(), this.table));
+    const querySnapshot = await getDocs(collection(fireStore(), this.table));
     const docs = [];
     querySnapshot.forEach((doc) => {
       docs.push({ ...doc.data(), id: doc.id });
@@ -41,7 +41,7 @@ class FirebaseQueries {
   }
 
   getDocuments(onSuccess, onError) {
-    const q = query(collection(db(), this.table));
+    const q = query(collection(fireStore(), this.table));
     const unsubscribe = onSnapshot(
       q,
       (queries) => {

@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UploadFile from "./pages/UploadFile";
 import Practice from "./pages/Practice"
+import Firestore from "./pages/Firestore"
 import RedirectRoute from "./routers/RedirectRoute";
 import PrivateRoute from "./routers/PrivateRoute";
 
@@ -14,6 +15,10 @@ export default function Routers() {
       <Routes>
         <Route element={<PrivateRoute />} path="/">
           <Route element={<App />} index />
+        </Route>
+
+        <Route element={<PrivateRoute />} path="/firestore">
+          <Route element={<Firestore />} index />
         </Route>
         
         <Route element={<PrivateRoute />} path="/upload">
